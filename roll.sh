@@ -59,14 +59,14 @@ echo -en "\x1b[?25l \x1b[2J \x1b[H"  # Hide cursor, clear screen.
 #echo -e "${yell}Fetching audio..."
 if has? afplay; then
   # On Mac OS, if |afplay| available, pre-fetch compressed audio.
-  obtainium $audio_gsm >/tmp/roll.gsm.wav
+  obtainium $audio_raw >/tmp/roll.gsm.wav
   afplay /tmp/roll.gsm.wav &
 elif has? aplay; then
   # On Linux, if |aplay| available, stream raw sound.
   obtainium $audio_raw | aplay -Dplug:default -q -f S16_LE -r 8000 &
 elif has? play; then
   # On Cygwin, if |play| is available (via sox), pre-fetch compressed audio.
-  obtainium $audio_gsm >/tmp/roll.gsm.wav
+  obtainium $audio_raw >/tmp/roll.gsm.wav
   play -q /tmp/roll.gsm.wav &
 fi
 audpid=$!
